@@ -1,0 +1,644 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="MachineManager" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:njl="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_MachineOperation" Type="InArgument(x:String)" />
+    <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, ui:GenericValue))" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1288,2372</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>CreateMachine_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="40">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>UiPath.Excel</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>Newtonsoft.Json</x:String>
+      <x:String>Newtonsoft.Json.Serialization</x:String>
+      <x:String>Newtonsoft.Json.Linq</x:String>
+      <x:String>Newtonsoft.Json.Converters</x:String>
+      <x:String>System.Web</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>UiPath.Excel.Activities</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>System.Text.RegularExpressions</x:String>
+      <x:String>System.Dynamic</x:String>
+      <x:String>System.Collections.Specialized</x:String>
+      <x:String>UiPath.Web.Activities</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="27">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>Newtonsoft.Json</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Plugin.Workflow</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>UiPath.Web.Activities</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="Decide what operation should be performed on Machines." DisplayName="Machine Manager" sap:VirtualizedContainerService.HintSize="645,2307" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="ui:WorkbookApplication" Name="OpenWorkbook" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:ExcelApplicationScope Password="{x:Null}" CreateNewFile="False" DisplayName="Excel Application Scope (Machine Manager)" sap:VirtualizedContainerService.HintSize="603,22" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_7" Workbook="[OpenWorkbook]" WorkbookPath="[String.Format(&quot;{0}\{1}&quot;, in_Config(&quot;EntitiesWorkbooksFolderPath&quot;), in_Config(&quot;MachineConfigFilePath&quot;))]">
+      <ui:ExcelApplicationScope.Body>
+        <ActivityAction x:TypeArguments="ui:WorkbookApplication">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
+          </ActivityAction.Argument>
+        </ActivityAction>
+      </ui:ExcelApplicationScope.Body>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:ExcelApplicationScope>
+    <Switch x:TypeArguments="x:String" DisplayName="Switch (Machine Operation)" Expression="[in_MachineOperation.ToLowerInvariant]" sap:VirtualizedContainerService.HintSize="603,2122" sap2010:WorkflowViewState.IdRef="Switch`1_2">
+      <Switch.Default>
+        <Sequence DisplayName="Unsupported Operation" sap:VirtualizedContainerService.HintSize="376,285.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_11">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:LogMessage DisplayName="Log Message (Unsupported Operation)" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Error" Message="[in_Config(&quot;UnsupportedOperation&quot;)]" />
+          <ui:MessageBox ChosenButton="{x:Null}" Caption="[in_Config(&quot;ErrorMessageBoxTitle&quot;)]" DisplayName="Message Box (Unsupported Operation)" sap:VirtualizedContainerService.HintSize="334,58.6666666666667" sap2010:WorkflowViewState.IdRef="MessageBox_1" Text="[in_Config(&quot;UnsupportedOperation&quot;)]" />
+        </Sequence>
+      </Switch.Default>
+      <Sequence x:Key="get" sap2010:Annotation.AnnotationText="It is not necessary to check for numerous requests since the Get operation only does a constant number of requests." DisplayName="Get" sap:VirtualizedContainerService.HintSize="476,1021" sap2010:WorkflowViewState.IdRef="Sequence_10">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <ui:LogMessage DisplayName="Log Message (Get)" sap:VirtualizedContainerService.HintSize="434,91" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Trace" Message="[String.Format(&quot;{0}: {1} - {2}: {3}&quot;, in_Config(&quot;FormEntityLabel&quot;), in_Config(&quot;FormMachineOption&quot;), in_Config(&quot;FormOperationLabel&quot;), in_Config(&quot;GetOperationName&quot;))]" />
+        <ui:ExcelApplicationScope Password="{x:Null}" WorkbookPath="{x:Null}" sap2010:Annotation.AnnotationText="Clear previously written Machine data and write new data about Machines." CreateNewFile="False" DisplayName="Excel Application Scope (Get Machines)" ExistingWorkbook="[OpenWorkbook]" sap:VirtualizedContainerService.HintSize="434,756" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_8" Visible="False">
+          <ui:ExcelApplicationScope.Body>
+            <ActivityAction x:TypeArguments="ui:WorkbookApplication">
+              <ActivityAction.Argument>
+                <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
+              </ActivityAction.Argument>
+              <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="376,605" sap2010:WorkflowViewState.IdRef="Sequence_12">
+                <Sequence.Variables>
+                  <Variable x:TypeArguments="sd:DataTable" Name="PreviousMachines" />
+                  <Variable x:TypeArguments="sd:DataTable" Name="MachinesData" />
+                </Sequence.Variables>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:ExcelReadRange AddHeaders="True" DataTable="[PreviousMachines]" DisplayName="Read Range (Previously Listed Machines)" sap:VirtualizedContainerService.HintSize="334,59" sap2010:WorkflowViewState.IdRef="ExcelReadRange_6" SheetName="[in_Config(&quot;GetOperationName&quot;)]">
+                  <ui:ExcelReadRange.Range>
+                    <InArgument x:TypeArguments="x:String">
+                      <Literal x:TypeArguments="x:String" Value="" />
+                    </InArgument>
+                  </ui:ExcelReadRange.Range>
+                </ui:ExcelReadRange>
+                <ui:ExcelWriteCell sap2010:Annotation.AnnotationText="Math.Max() prevents clearing the header of the table." Cell="[&quot;A2:Z&quot;+Math.Max(1+PreviousMachines.Rows.Count, 2).ToString]" DisplayName="Write Cell (Clear Previously Listed Machines)" sap:VirtualizedContainerService.HintSize="334,118" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_1" SheetName="[in_Config(&quot;GetOperationName&quot;)]">
+                  <ui:ExcelWriteCell.Text>
+                    <InArgument x:TypeArguments="x:String">
+                      <Literal x:TypeArguments="x:String" Value="" />
+                    </InArgument>
+                  </ui:ExcelWriteCell.Text>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </ui:ExcelWriteCell>
+                <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Make request after clearing sheet to prevent users from using old data." DisplayName="Invoke GetMachinesData Workflow (Get Machines)" sap:VirtualizedContainerService.HintSize="334,129" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_14" UnSafe="False" WorkflowFileName="Entities/Machines/GetMachinesData.xaml">
+                  <ui:InvokeWorkflowFile.Arguments>
+                    <InArgument x:TypeArguments="scg:Dictionary(x:String, ui:GenericValue)" x:Key="in_Config">[in_Config]</InArgument>
+                    <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_MachinesData">[MachinesData]</OutArgument>
+                    <InArgument x:TypeArguments="s:Int64[]" x:Key="in_FilterIDs">[{}]</InArgument>
+                    <InArgument x:TypeArguments="s:String[]" x:Key="in_FilterNames">[{}]</InArgument>
+                  </ui:InvokeWorkflowFile.Arguments>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </ui:InvokeWorkflowFile>
+                <ui:ExcelWriteRange AddHeaders="False" DataTable="[MachinesData]" DisplayName="Write Range (Machines Details)" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="ExcelWriteRange_1" SheetName="[in_Config(&quot;GetOperationName&quot;)]" StartingCell="A2" />
+              </Sequence>
+            </ActivityAction>
+          </ui:ExcelApplicationScope.Body>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </ui:ExcelApplicationScope>
+      </Sequence>
+      <Sequence x:Key="create" DisplayName="Create" sap:VirtualizedContainerService.HintSize="526,1204" sap2010:WorkflowViewState.IdRef="Sequence_9">
+        <Sequence.Variables>
+          <Variable x:TypeArguments="sd:DataTable" Name="MachinesDetails" />
+          <Variable x:TypeArguments="sd:DataTable" Name="MachinesData" />
+          <Variable x:TypeArguments="sd:DataRow[]" Name="UnprocessedMachinesDetails" />
+          <Variable x:TypeArguments="s:String[]" Default="[{&#xA;&#x9;&quot;Type&quot;,&#xA;&#x9;&quot;Name&quot;,&#xA;&#x9;&quot;Description&quot;,&#xA;&#x9;&quot;UnattendedSlots&quot;,&#xA;&#x9;&quot;NonProductionSlots&quot;,&#xA;&#x9;&quot;TestAutomationSlots&quot;,&#xA;&#x9;&quot;Key&quot;,&#xA;&#x9;&quot;ID&quot;,&#xA;&#x9;&quot;Result&quot;&#xA;}]" Name="ColumnNames" />
+        </Sequence.Variables>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <ui:LogMessage DisplayName="Log Message (Create Machine)" sap:VirtualizedContainerService.HintSize="484,91" sap2010:WorkflowViewState.IdRef="LogMessage_7" Level="Trace" Message="[String.Format(&quot;{0}: {1} - {2}: {3}&quot;, in_Config(&quot;FormEntityLabel&quot;), in_Config(&quot;FormMachineOption&quot;), in_Config(&quot;FormOperationLabel&quot;), in_Config(&quot;CreateOperationName&quot;))]" />
+        <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke AssignColumnNames Workflow (Create Machine)" sap:VirtualizedContainerService.HintSize="484,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_17" UnSafe="False" WorkflowFileName="Common/AssignColumnNames.xaml">
+          <ui:InvokeWorkflowFile.Arguments>
+            <InArgument x:TypeArguments="ui:WorkbookApplication" x:Key="in_OpenWorkbook">[OpenWorkbook]</InArgument>
+            <InArgument x:TypeArguments="s:String[]" x:Key="in_ColumnNames">[ColumnNames]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_SheetName">[in_Config("CreateOperationName")]</InArgument>
+            <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_DataTable">[MachinesDetails]</OutArgument>
+          </ui:InvokeWorkflowFile.Arguments>
+        </ui:InvokeWorkflowFile>
+        <Assign sap2010:Annotation.AnnotationText="Select only rows that do not have a value in the Result column, but have at least a value in any other column." DisplayName="Assign UnprocessedMachinesDetails (Create Machine)" sap:VirtualizedContainerService.HintSize="484,117" sap2010:WorkflowViewState.IdRef="Assign_1">
+          <Assign.To>
+            <OutArgument x:TypeArguments="sd:DataRow[]">[UnprocessedMachinesDetails]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="sd:DataRow[]">[MachinesDetails.AsEnumerable().Where(Function(Row) String.IsNullOrWhiteSpace(Row("Result").ToString) AndAlso Row.ItemArray.Any(Function(RowField) Not String.IsNullOrWhiteSpace(RowField.ToString))).ToArray()]</InArgument>
+          </Assign.Value>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </Assign>
+        <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke ConfirmNumerousRequests Workflow (Create Machine)" sap:VirtualizedContainerService.HintSize="484,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_10" UnSafe="False" WorkflowFileName="Common/ConfirmNumerousRequests.xaml">
+          <ui:InvokeWorkflowFile.Arguments>
+            <InArgument x:TypeArguments="scg:Dictionary(x:String, ui:GenericValue)" x:Key="in_Config">[in_Config]</InArgument>
+            <InArgument x:TypeArguments="x:Int32" x:Key="in_PlannedNumberOfRequests">[MachinesDetails.Rows.Count()]</InArgument>
+          </ui:InvokeWorkflowFile.Arguments>
+        </ui:InvokeWorkflowFile>
+        <If Condition="[UnprocessedMachinesDetails.Count() &gt; 0]" DisplayName="If There are Rows to Process (Create Machine)" sap:VirtualizedContainerService.HintSize="484,307" sap2010:WorkflowViewState.IdRef="If_5">
+          <If.Then>
+            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Get current data about Machines to share data among rows and reduce the number of requests.&#xA;&#xA;Consider only Machines specified in the sheet." DisplayName="Invoke GetMachinesData Workflow (Create Machine)" sap:VirtualizedContainerService.HintSize="334,159" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_15" UnSafe="False" WorkflowFileName="Entities/Machines/GetMachinesData.xaml">
+              <ui:InvokeWorkflowFile.Arguments>
+                <InArgument x:TypeArguments="scg:Dictionary(x:String, ui:GenericValue)" x:Key="in_Config">[in_Config]</InArgument>
+                <InArgument x:TypeArguments="s:Int64[]" x:Key="in_FilterIDs">[{}]</InArgument>
+                <InArgument x:TypeArguments="s:String[]" x:Key="in_FilterNames">[UnprocessedMachinesDetails.Where(Function(Row) Not String.IsNullOrWhiteSpace(Row("Name").ToString)).Select(Function(Row) Row("Name").ToString).Distinct().ToArray()]</InArgument>
+                <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_MachinesData">[MachinesData]</OutArgument>
+              </ui:InvokeWorkflowFile.Arguments>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:InvokeWorkflowFile>
+          </If.Then>
+        </If>
+        <ui:ForEach x:TypeArguments="sd:DataRow" CurrentIndex="{x:Null}" DisplayName="For Each Row (Create Machine)" sap:VirtualizedContainerService.HintSize="484,221" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[UnprocessedMachinesDetails]">
+          <ui:ForEach.Body>
+            <ActivityAction x:TypeArguments="sd:DataRow">
+              <ActivityAction.Argument>
+                <DelegateInArgument x:TypeArguments="sd:DataRow" Name="MachineDetails" />
+              </ActivityAction.Argument>
+              <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke CreateMachine Workflow" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_11" UnSafe="False" WorkflowFileName="Entities/Machines/CreateMachine.xaml">
+                <ui:InvokeWorkflowFile.Arguments>
+                  <InArgument x:TypeArguments="x:Int32" x:Key="in_MachineIndex">[MachinesDetails.Rows.IndexOf(MachineDetails)]</InArgument>
+                  <InArgument x:TypeArguments="ui:WorkbookApplication" x:Key="in_OpenedWorkbook">[OpenWorkbook]</InArgument>
+                  <InArgument x:TypeArguments="scg:Dictionary(x:String, ui:GenericValue)" x:Key="in_Config">[in_Config]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_Name">[MachineDetails("Name").ToString]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_Type">[MachineDetails("Type").ToString]</InArgument>
+                  <InArgument x:TypeArguments="sd:DataTable" x:Key="io_MachinesData">[MachinesData]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_Key">[MachineDetails("Key").ToString]</InArgument>
+                  <InArgument x:TypeArguments="s:String[]" x:Key="in_ColumnNames">[ColumnNames]</InArgument>
+                  <InArgument x:TypeArguments="sd:DataRow" x:Key="in_MachineDetails">[MachineDetails]</InArgument>
+                </ui:InvokeWorkflowFile.Arguments>
+              </ui:InvokeWorkflowFile>
+            </ActivityAction>
+          </ui:ForEach.Body>
+        </ui:ForEach>
+      </Sequence>
+      <Sequence x:Key="delete" DisplayName="Delete " sap:VirtualizedContainerService.HintSize="526,1707" sap2010:WorkflowViewState.IdRef="Sequence_8">
+        <Sequence.Variables>
+          <Variable x:TypeArguments="sd:DataTable" Name="MachinesDetails" />
+          <Variable x:TypeArguments="sd:DataTable" Name="MachinesData" />
+          <Variable x:TypeArguments="sd:DataRow[]" Name="UnprocessedMachinesDetails" />
+        </Sequence.Variables>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <ui:LogMessage DisplayName="Log Message (Delete Machine)" sap:VirtualizedContainerService.HintSize="484,91" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Trace" Message="[String.Format(&quot;{0}: {1} - {2}: {3}&quot;, in_Config(&quot;FormEntityLabel&quot;), in_Config(&quot;FormMachineOption&quot;), in_Config(&quot;FormOperationLabel&quot;), in_Config(&quot;DeleteOperationName&quot;))]" />
+        <ui:ExcelApplicationScope Password="{x:Null}" WorkbookPath="{x:Null}" CreateNewFile="False" DisplayName="Excel Application Scope (Delete Machine)" ExistingWorkbook="[OpenWorkbook]" sap:VirtualizedContainerService.HintSize="484,22" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_4" Visible="False">
+          <ui:ExcelApplicationScope.Body>
+            <ActivityAction x:TypeArguments="ui:WorkbookApplication">
+              <ActivityAction.Argument>
+                <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
+              </ActivityAction.Argument>
+              <Sequence sap2010:Annotation.AnnotationText="The names of the original columns from the sheet depend on the used language, so rename them according to the same names used by the Get operation for easier understanding and manipulation by column name instead of column index." DisplayName="Get Data and Rename Columns (Delete Machine)" sap:VirtualizedContainerService.HintSize="376,521" sap2010:WorkflowViewState.IdRef="Sequence_14">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:ExcelReadRange AddHeaders="True" DataTable="[MachinesDetails]" DisplayName="Read Range (Delete Machine)" sap:VirtualizedContainerService.HintSize="334,59" sap2010:WorkflowViewState.IdRef="ExcelReadRange_4" SheetName="[in_Config(&quot;DeleteOperationName&quot;)]" UseFilter="True">
+                  <ui:ExcelReadRange.Range>
+                    <InArgument x:TypeArguments="x:String">
+                      <Literal x:TypeArguments="x:String" Value="" />
+                    </InArgument>
+                  </ui:ExcelReadRange.Range>
+                </ui:ExcelReadRange>
+                <Assign DisplayName="Assign ID Column (Delete Machine)" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_8">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:String">[MachinesDetails.Columns(0).ColumnName]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:String">ID</InArgument>
+                  </Assign.Value>
+                </Assign>
+                <Assign DisplayName="Assign Name Column (Delete Machine)" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_9">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:String">[MachinesDetails.Columns(1).ColumnName]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:String">Name</InArgument>
+                  </Assign.Value>
+                </Assign>
+                <Assign DisplayName="Assign Result Column (Delete Machine)" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_10">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:String">[MachinesDetails.Columns(2).ColumnName]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:String">Result</InArgument>
+                  </Assign.Value>
+                </Assign>
+              </Sequence>
+            </ActivityAction>
+          </ui:ExcelApplicationScope.Body>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </ui:ExcelApplicationScope>
+        <Assign sap2010:Annotation.AnnotationText="Select only rows that do not have a value in the Result column, but have at least a value in any other column." DisplayName="Assign UnprocessedMachinesDetails (Delete Machine)" sap:VirtualizedContainerService.HintSize="484,117" sap2010:WorkflowViewState.IdRef="Assign_2">
+          <Assign.To>
+            <OutArgument x:TypeArguments="sd:DataRow[]">[UnprocessedMachinesDetails]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="sd:DataRow[]">[MachinesDetails.AsEnumerable().Where(Function(Row) String.IsNullOrWhiteSpace(Row("Result").ToString) AndAlso Row.ItemArray.Any(Function(RowField) Not String.IsNullOrWhiteSpace(RowField.ToString))).ToArray()]</InArgument>
+          </Assign.Value>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </Assign>
+        <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke ConfirmNumerousRequests Workflow (Delete Machine)" sap:VirtualizedContainerService.HintSize="484,89" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_8" UnSafe="False" WorkflowFileName="Common/ConfirmNumerousRequests.xaml">
+          <ui:InvokeWorkflowFile.Arguments>
+            <InArgument x:TypeArguments="scg:Dictionary(x:String, ui:GenericValue)" x:Key="in_Config">[in_Config]</InArgument>
+            <InArgument x:TypeArguments="x:Int32" x:Key="in_PlannedNumberOfRequests">[MachinesDetails.Rows.Count]</InArgument>
+          </ui:InvokeWorkflowFile.Arguments>
+        </ui:InvokeWorkflowFile>
+        <If Condition="[UnprocessedMachinesDetails.Count() &gt; 0]" DisplayName="If There are Rows to Process (Delete Machine)" sap:VirtualizedContainerService.HintSize="484,307" sap2010:WorkflowViewState.IdRef="If_6">
+          <If.Then>
+            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Get current data about Machines to share data among rows and reduce the number of requests.&#xA;&#xA;Consider only Machines specified in the sheet." DisplayName="Invoke GetMachinesData Workflow (Delete Machine)" sap:VirtualizedContainerService.HintSize="334,159" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_16" UnSafe="False" WorkflowFileName="Entities/Machines/GetMachinesData.xaml">
+              <ui:InvokeWorkflowFile.Arguments>
+                <InArgument x:TypeArguments="scg:Dictionary(x:String, ui:GenericValue)" x:Key="in_Config">[in_Config]</InArgument>
+                <InArgument x:TypeArguments="s:Int64[]" x:Key="in_FilterIDs">[{}]</InArgument>
+                <InArgument x:TypeArguments="s:String[]" x:Key="in_FilterNames">[UnprocessedMachinesDetails.Where(Function(Row) Not String.IsNullOrWhiteSpace(Row("Name").ToString)).Select(Function(Row) Row("Name").ToString).Distinct().ToArray()]</InArgument>
+                <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_MachinesData">[MachinesData]</OutArgument>
+              </ui:InvokeWorkflowFile.Arguments>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:InvokeWorkflowFile>
+          </If.Then>
+        </If>
+        <ui:ForEach x:TypeArguments="sd:DataRow" CurrentIndex="{x:Null}" DisplayName="For Each Row (Delete Machine)" sap:VirtualizedContainerService.HintSize="484,221" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[UnprocessedMachinesDetails]">
+          <ui:ForEach.Body>
+            <ActivityAction x:TypeArguments="sd:DataRow">
+              <ActivityAction.Argument>
+                <DelegateInArgument x:TypeArguments="sd:DataRow" Name="MachineDetails" />
+              </ActivityAction.Argument>
+              <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke DeleteMachine Workflow" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_9" UnSafe="False" WorkflowFileName="Entities/Machines/DeleteMachine.xaml">
+                <ui:InvokeWorkflowFile.Arguments>
+                  <InArgument x:TypeArguments="scg:Dictionary(x:String, ui:GenericValue)" x:Key="in_Config">[in_Config]</InArgument>
+                  <InArgument x:TypeArguments="ui:WorkbookApplication" x:Key="in_OpenWorkbook">[OpenWorkbook]</InArgument>
+                  <InArgument x:TypeArguments="x:Int32" x:Key="in_MachineIndex">[MachinesDetails.Rows.IndexOf(MachineDetails)]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_MachineID">[MachineDetails("ID").ToString]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_MachineName">[MachineDetails("Name").ToString]</InArgument>
+                  <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_MachinesData">[MachinesData]</InOutArgument>
+                </ui:InvokeWorkflowFile.Arguments>
+              </ui:InvokeWorkflowFile>
+            </ActivityAction>
+          </ui:ForEach.Body>
+        </ui:ForEach>
+      </Sequence>
+      <Sequence x:Key="installedrobots" DisplayName="Installed Robots" sap:VirtualizedContainerService.HintSize="476,1024" sap2010:WorkflowViewState.IdRef="Sequence_16">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <ui:LogMessage DisplayName="Log Message (Installed Robots)" sap:VirtualizedContainerService.HintSize="434,91" sap2010:WorkflowViewState.IdRef="LogMessage_9" Level="Trace" Message="[String.Format(&quot;{0}: {1} - {2}: {3}&quot;, in_Config(&quot;FormEntityLabel&quot;), in_Config(&quot;FormMachineOption&quot;), in_Config(&quot;FormOperationLabel&quot;), in_Config(&quot;InstalledRobotsOperationName&quot;))]" />
+        <ui:ExcelApplicationScope Password="{x:Null}" WorkbookPath="{x:Null}" sap2010:Annotation.AnnotationText="Clear previously written Machine data and write new data about Machines." CreateNewFile="False" DisplayName="Excel Application Scope (Installed Robots)" ExistingWorkbook="[OpenWorkbook]" sap:VirtualizedContainerService.HintSize="434,883" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_9" Visible="False">
+          <ui:ExcelApplicationScope.Body>
+            <ActivityAction x:TypeArguments="ui:WorkbookApplication">
+              <ActivityAction.Argument>
+                <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
+              </ActivityAction.Argument>
+              <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="376,732" sap2010:WorkflowViewState.IdRef="Sequence_15">
+                <Sequence.Variables>
+                  <Variable x:TypeArguments="sd:DataTable" Name="PreviousMachines" />
+                  <Variable x:TypeArguments="sd:DataTable" Name="MachinesData" />
+                  <Variable x:TypeArguments="sd:DataTable" Name="InstalledRobotsData" />
+                </Sequence.Variables>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:ExcelReadRange AddHeaders="True" DataTable="[PreviousMachines]" DisplayName="Read Range (Previously Listed Installed Robots)" sap:VirtualizedContainerService.HintSize="334,59" sap2010:WorkflowViewState.IdRef="ExcelReadRange_7" SheetName="[in_Config(&quot;InstalledRobotsOperationName&quot;)]">
+                  <ui:ExcelReadRange.Range>
+                    <InArgument x:TypeArguments="x:String">
+                      <Literal x:TypeArguments="x:String" Value="" />
+                    </InArgument>
+                  </ui:ExcelReadRange.Range>
+                </ui:ExcelReadRange>
+                <ui:ExcelWriteCell sap2010:Annotation.AnnotationText="Math.Max() prevents clearing the header of the table." Cell="[&quot;A2:Z&quot;+Math.Max(1+PreviousMachines.Rows.Count, 2).ToString]" DisplayName="Write Cell (Clear Previously Listed Installed Robots)" sap:VirtualizedContainerService.HintSize="334,118" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_2" SheetName="[in_Config(&quot;InstalledRobotsOperationName&quot;)]">
+                  <ui:ExcelWriteCell.Text>
+                    <InArgument x:TypeArguments="x:String">
+                      <Literal x:TypeArguments="x:String" Value="" />
+                    </InArgument>
+                  </ui:ExcelWriteCell.Text>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </ui:ExcelWriteCell>
+                <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke GetMachinesData Workflow (Get Machines)" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_19" UnSafe="False" WorkflowFileName="Entities/Machines/GetMachinesData.xaml">
+                  <ui:InvokeWorkflowFile.Arguments>
+                    <InArgument x:TypeArguments="scg:Dictionary(x:String, ui:GenericValue)" x:Key="in_Config">[in_Config]</InArgument>
+                    <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_MachinesData">[MachinesData]</OutArgument>
+                    <InArgument x:TypeArguments="s:Int64[]" x:Key="in_FilterIDs">[{}]</InArgument>
+                    <InArgument x:TypeArguments="s:String[]" x:Key="in_FilterNames">[{}]</InArgument>
+                  </ui:InvokeWorkflowFile.Arguments>
+                </ui:InvokeWorkflowFile>
+                <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Make request after clearing sheet to prevent users from using old data." DisplayName="Invoke GetInstalledRobotsWorkflow (Get Installed Robots)" sap:VirtualizedContainerService.HintSize="334,129" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_20" UnSafe="False" WorkflowFileName="Entities\Machines\GetInstalledRobots.xaml">
+                  <ui:InvokeWorkflowFile.Arguments>
+                    <InArgument x:TypeArguments="scg:Dictionary(x:String, ui:GenericValue)" x:Key="in_Config">[in_Config]</InArgument>
+                    <InArgument x:TypeArguments="s:Int64[]" x:Key="in_FilterIDs">[{}]</InArgument>
+                    <InArgument x:TypeArguments="s:String[]" x:Key="in_FilterNames">[{}]</InArgument>
+                    <InArgument x:TypeArguments="sd:DataTable" x:Key="in_MachinesData">[MachinesData]</InArgument>
+                    <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_InstalledRobotsData">[InstalledRobotsData]</OutArgument>
+                  </ui:InvokeWorkflowFile.Arguments>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </ui:InvokeWorkflowFile>
+                <ui:ExcelWriteRange AddHeaders="False" DataTable="[InstalledRobotsData]" DisplayName="Write Range (Installed Robots)" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="ExcelWriteRange_2" SheetName="[in_Config(&quot;InstalledRobotsOperationName&quot;)]" StartingCell="A2" />
+              </Sequence>
+            </ActivityAction>
+          </ui:ExcelApplicationScope.Body>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </ui:ExcelApplicationScope>
+      </Sequence>
+      <Sequence x:Key="editusermappings" DisplayName="Edit User Mappings" sap:VirtualizedContainerService.HintSize="563,1843" sap2010:WorkflowViewState.IdRef="Sequence_18">
+        <Sequence.Variables>
+          <Variable x:TypeArguments="sd:DataTable" Name="MachinesDetails" />
+          <Variable x:TypeArguments="sd:DataTable" Name="MachinesData" />
+          <Variable x:TypeArguments="sd:DataRow[]" Name="UnprocessedMachinesDetails" />
+          <Variable x:TypeArguments="s:String[]" Default="[{ &quot;MachineID&quot;, &quot;UsersToAssign&quot;, &quot;UsersToUnassign&quot;, &quot;Result&quot; }]" Name="ColumnNames" />
+          <Variable x:TypeArguments="scg:Dictionary(x:String, x:Int64)" Default="[New Dictionary(Of String, Int64)]" Name="UsernameToRobotID" />
+        </Sequence.Variables>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <ui:LogMessage DisplayName="Log Message (Edit User Mappings)" sap:VirtualizedContainerService.HintSize="521,93" sap2010:WorkflowViewState.IdRef="LogMessage_10" Level="Trace" Message="[String.Format(&quot;{0}: {1} - {2}: {3}&quot;, in_Config(&quot;FormEntityLabel&quot;), in_Config(&quot;FormMachineOption&quot;), in_Config(&quot;FormOperationLabel&quot;), in_Config(&quot;EditUserMappingsOperationName&quot;))]" />
+        <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke AssignColumnNames Workflow (Edit User Mappings)" sap:VirtualizedContainerService.HintSize="521,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_21" UnSafe="False" WorkflowFileName="Common/AssignColumnNames.xaml">
+          <ui:InvokeWorkflowFile.Arguments>
+            <InArgument x:TypeArguments="ui:WorkbookApplication" x:Key="in_OpenWorkbook">[OpenWorkbook]</InArgument>
+            <InArgument x:TypeArguments="s:String[]" x:Key="in_ColumnNames">[ColumnNames]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_SheetName">[in_Config("EditUserMappingsOperationName")]</InArgument>
+            <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_DataTable">[MachinesDetails]</OutArgument>
+          </ui:InvokeWorkflowFile.Arguments>
+        </ui:InvokeWorkflowFile>
+        <Assign sap2010:Annotation.AnnotationText="Select only rows that do not have a value in the Result column, but have at least a value in any other column." DisplayName="Assign UnprocessedMachinesDetails (Edit User Mappings)" sap:VirtualizedContainerService.HintSize="521,120" sap2010:WorkflowViewState.IdRef="Assign_11">
+          <Assign.To>
+            <OutArgument x:TypeArguments="sd:DataRow[]">[UnprocessedMachinesDetails]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="sd:DataRow[]">[MachinesDetails.AsEnumerable().Where(Function(Row) String.IsNullOrWhiteSpace(Row("Result").ToString) AndAlso Row.ItemArray.Any(Function(RowField) Not String.IsNullOrWhiteSpace(RowField.ToString))).ToArray()]</InArgument>
+          </Assign.Value>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </Assign>
+        <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke ConfirmNumerousRequests Workflow (Edit User Mappings)" sap:VirtualizedContainerService.HintSize="521,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_22" UnSafe="False" WorkflowFileName="Common/ConfirmNumerousRequests.xaml">
+          <ui:InvokeWorkflowFile.Arguments>
+            <InArgument x:TypeArguments="scg:Dictionary(x:String, ui:GenericValue)" x:Key="in_Config">[in_Config]</InArgument>
+            <InArgument x:TypeArguments="x:Int32" x:Key="in_PlannedNumberOfRequests">[MachinesDetails.Rows.Count()]</InArgument>
+          </ui:InvokeWorkflowFile.Arguments>
+        </ui:InvokeWorkflowFile>
+        <If Condition="[UnprocessedMachinesDetails.Count() &gt; 0]" DisplayName="If There are Rows to Process (Edit User Mappings)" sap:VirtualizedContainerService.HintSize="521,942" sap2010:WorkflowViewState.IdRef="If_7">
+          <If.Then>
+            <Sequence DisplayName="Get Data Necessary To Make Requests" sap:VirtualizedContainerService.HintSize="376,792" sap2010:WorkflowViewState.IdRef="Sequence_21">
+              <Sequence.Variables>
+                <Variable x:TypeArguments="njl:JObject" Name="ResultObject" />
+                <Variable x:TypeArguments="x:String" Name="ResultString" />
+              </Sequence.Variables>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Get current data about Machines to share data among rows and reduce the number of requests.&#xA;&#xA;Consider only Machines specified in the sheet." DisplayName="Invoke GetMachinesData Workflow (Create Machine)" sap:VirtualizedContainerService.HintSize="334,163" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_27" UnSafe="False" WorkflowFileName="Entities/Machines/GetMachinesData.xaml">
+                <ui:InvokeWorkflowFile.Arguments>
+                  <InArgument x:TypeArguments="scg:Dictionary(x:String, ui:GenericValue)" x:Key="in_Config">
+                    <mva:VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, ui:GenericValue)" ExpressionText="in_Config" />
+                  </InArgument>
+                  <OutArgument x:TypeArguments="sd:DataTable" x:Key="out_MachinesData">
+                    <mva:VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="MachinesData" />
+                  </OutArgument>
+                  <InArgument x:TypeArguments="s:Int64[]" x:Key="in_FilterIDs">
+                    <mva:VisualBasicValue x:TypeArguments="s:Int64[]" ExpressionText="UnprocessedMachinesDetails.Where(Function(Row) Not String.IsNullOrWhiteSpace(Row(&quot;MachineID&quot;).ToString)).Select(Function(Row) Convert.ToInt64(Row(&quot;MachineID&quot;))).Distinct().ToArray()" />
+                  </InArgument>
+                  <InArgument x:TypeArguments="s:String[]" x:Key="in_FilterNames">
+                    <mva:VisualBasicValue x:TypeArguments="s:String[]" ExpressionText="{}{}" />
+                  </InArgument>
+                  <InArgument x:TypeArguments="x:Boolean" x:Key="in_AssignRobotUsers">
+                    <Literal x:TypeArguments="x:Boolean" Value="True" />
+                  </InArgument>
+                </ui:InvokeWorkflowFile.Arguments>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+              </ui:InvokeWorkflowFile>
+              <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke MakeHTTPRequest Workflow" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_28" UnSafe="False" WorkflowFileName="Common/MakeHTTPRequest.xaml">
+                <ui:InvokeWorkflowFile.Arguments>
+                  <InOutArgument x:TypeArguments="scg:Dictionary(x:String, ui:GenericValue)" x:Key="io_Config">
+                    <mva:VisualBasicReference x:TypeArguments="scg:Dictionary(x:String, ui:GenericValue)" ExpressionText="in_Config" />
+                  </InOutArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_Method">
+                    <Literal x:TypeArguments="x:String">get</Literal>
+                  </InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_Endpoint">
+                    <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="String.Format(&quot;{0}/odata/Robots/UiPath.Server.Configuration.OData.FindAllAcrossFolders?$filter=Type eq '2' and ProvisionType eq '1'&quot;, in_Config(&quot;OrchestratorURL&quot;))" />
+                  </InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_Body" />
+                  <InArgument x:TypeArguments="x:Int64" x:Key="in_OUID" />
+                  <InArgument x:TypeArguments="x:Int32" x:Key="in_ExpectedStatusCode">
+                    <Literal x:TypeArguments="x:Int32" Value="200" />
+                  </InArgument>
+                  <OutArgument x:TypeArguments="x:Int32" x:Key="out_StatusCode" />
+                  <OutArgument x:TypeArguments="x:String" x:Key="out_Result">
+                    <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="ResultString" />
+                  </OutArgument>
+                </ui:InvokeWorkflowFile.Arguments>
+              </ui:InvokeWorkflowFile>
+              <ui:DeserializeJson x:TypeArguments="njl:JObject" DisplayName="Deserialize JSON" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="DeserializeJson`1_1" JsonObject="[ResultObject]" JsonString="[ResultString]" />
+              <ui:ForEach x:TypeArguments="njl:JObject" CurrentIndex="{x:Null}" DisplayName="For Each Robot" sap:VirtualizedContainerService.HintSize="334,270" sap2010:WorkflowViewState.IdRef="ForEach`1_6" Values="[ResultObject.SelectToken(&quot;value&quot;)]">
+                <ui:ForEach.Body>
+                  <ActivityAction x:TypeArguments="njl:JObject">
+                    <ActivityAction.Argument>
+                      <DelegateInArgument x:TypeArguments="njl:JObject" Name="Robot" />
+                    </ActivityAction.Argument>
+                    <InvokeMethod DisplayName="Invoke Method" sap:VirtualizedContainerService.HintSize="238,135" sap2010:WorkflowViewState.IdRef="InvokeMethod_3" MethodName="Add">
+                      <InvokeMethod.TargetObject>
+                        <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Int64)">[UsernameToRobotID]</InArgument>
+                      </InvokeMethod.TargetObject>
+                      <InArgument x:TypeArguments="x:String">[Robot("Username").ToString]</InArgument>
+                      <InArgument x:TypeArguments="x:Int64">[Convert.ToInt64(Robot("Id"))]</InArgument>
+                    </InvokeMethod>
+                  </ActivityAction>
+                </ui:ForEach.Body>
+              </ui:ForEach>
+            </Sequence>
+          </If.Then>
+        </If>
+        <ui:ForEach x:TypeArguments="sd:DataRow" CurrentIndex="{x:Null}" DisplayName="For Each Row (Edit User Mappings)" sap:VirtualizedContainerService.HintSize="521,222" sap2010:WorkflowViewState.IdRef="ForEach`1_4" Values="[UnprocessedMachinesDetails]">
+          <ui:ForEach.Body>
+            <ActivityAction x:TypeArguments="sd:DataRow">
+              <ActivityAction.Argument>
+                <DelegateInArgument x:TypeArguments="sd:DataRow" Name="MachineDetails" />
+              </ActivityAction.Argument>
+              <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke EditUserMappings workflow" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_26" UnSafe="False" WorkflowFileName="Entities\Machines\EditUserMappings.xaml">
+                <ui:InvokeWorkflowFile.Arguments>
+                  <InArgument x:TypeArguments="x:Int32" x:Key="in_MachineIndex">
+                    <mva:VisualBasicValue x:TypeArguments="x:Int32" ExpressionText="MachinesDetails.Rows.IndexOf(MachineDetails)" />
+                  </InArgument>
+                  <InArgument x:TypeArguments="ui:WorkbookApplication" x:Key="in_OpenedWorkbook">
+                    <mva:VisualBasicValue x:TypeArguments="ui:WorkbookApplication" ExpressionText="OpenWorkbook" />
+                  </InArgument>
+                  <InArgument x:TypeArguments="scg:Dictionary(x:String, ui:GenericValue)" x:Key="in_Config">
+                    <mva:VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, ui:GenericValue)" ExpressionText="in_Config" />
+                  </InArgument>
+                  <InArgument x:TypeArguments="s:String[]" x:Key="in_ColumnNames">
+                    <mva:VisualBasicValue x:TypeArguments="s:String[]" ExpressionText="ColumnNames" />
+                  </InArgument>
+                  <InArgument x:TypeArguments="x:Int64" x:Key="in_MachineID">
+                    <mva:VisualBasicValue x:TypeArguments="x:Int64" ExpressionText="Convert.ToInt64(MachineDetails(&quot;MachineID&quot;))" />
+                  </InArgument>
+                  <InArgument x:TypeArguments="s:String[]" x:Key="in_UsersToUnassign">
+                    <mva:VisualBasicValue x:TypeArguments="s:String[]" ExpressionText="If(String.IsNullOrWhiteSpace(MachineDetails(&quot;UsersToUnassign&quot;).ToString), New String() {}, Regex.Split(MachineDetails(&quot;UsersToUnassign&quot;).ToString, &quot;,\s*&quot;).ToArray)" />
+                  </InArgument>
+                  <InArgument x:TypeArguments="s:String[]" x:Key="in_UsersToAssign">
+                    <mva:VisualBasicValue x:TypeArguments="s:String[]" ExpressionText="If(String.IsNullOrWhiteSpace(MachineDetails(&quot;UsersToAssign&quot;).ToString), New String() {}, Regex.Split(MachineDetails(&quot;UsersToAssign&quot;).ToString, &quot;,\s*&quot;).ToArray)" />
+                  </InArgument>
+                  <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Int64)" x:Key="in_UsernameToRobotID">
+                    <mva:VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Int64)" ExpressionText="UsernameToRobotID" />
+                  </InArgument>
+                  <InArgument x:TypeArguments="sd:DataTable" x:Key="in_MachinesData">
+                    <mva:VisualBasicValue x:TypeArguments="sd:DataTable" ExpressionText="MachinesData" />
+                  </InArgument>
+                </ui:InvokeWorkflowFile.Arguments>
+              </ui:InvokeWorkflowFile>
+            </ActivityAction>
+          </ui:ForEach.Body>
+        </ui:ForEach>
+      </Sequence>
+    </Switch>
+  </Sequence>
+</Activity>

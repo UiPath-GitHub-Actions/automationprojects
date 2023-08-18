@@ -1,0 +1,221 @@
+<!-- saved from url=(0016)http://localhost -->
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>_FormTitle_</title>
+		<link rel="stylesheet" type="text/css" href="FormStyle.css">
+	</head>
+
+	<body onload="hideUserOption(); updateOperations(); selectOperationSelectedBefore(); updateOpenWorkbookButtonText()">
+		<img class="logo" src="UiPathLogo.svg" alt="UiPath Logo">
+
+		<!-- Based on form from https://www.sanwebe.com/2014/08/css-html-forms-designs -->
+		<div class="form-style">
+			<div class="form-style-heading">_FormTitle_</div>
+			<form id="controlPanelForm" action="" method="post">
+				<label for="entity"><span>_FormEntityLabel_</span><select id="entity" onchange="updateOperations(); updateOpenWorkbookButtonText()" class="select-field">
+					<option id="assetOption" value="asset" _FormAssetSelected_>_FormAssetOption_</option>
+					<option id="userOption" value="user" _FormUserSelected_>_FormUserOption_</option>
+					<option id="machineOption" value="machine" _FormMachineSelected_>_FormMachineOption_</option>
+					<option id="robotOption" value="robot" _FormRobotSelected_>_FormRobotOption_</option>
+					<option id="environmentOption" value="environment" _FormEnvironmentSelected_>_FormEnvironmentOption_</option>
+					<option id="processOption" value="process" _FormProcessSelected_>_FormProcessOption_</option>
+					<option id="ouOption" value="organizationunit" _FormOUSelected_>_FormOrganizationUnitOption_</option>
+					<option id="folderOption" value="folder" _FormFolderSelected_>_FormFolderOption_</option>
+					<option id="queueOption" value="queue" _FormQueueSelected_>_FormQueueOption_</option>
+					<option id="packageOption" value="package" _FormPackageSelected_>_FormPackageOption_</option>
+					<option id="libraryOption" value="library" _FormLibrarySelected_>_FormLibraryOption_</option>
+					<option id="triggerOption" value="trigger" _FormTriggerSelected_>_FormTriggerOption_</option>
+					<option id="jobOption" value="job" _FormJobSelected_>_FormJobOption_</option>
+				</select></label>
+				
+				<label for="operation"><span>_FormOperationLabel_</span><select id="operation" class="select-field">
+					<option id="getOption" value="get">_FormGetOption_</option>
+					<option id="getCredentialOption" value="getcredential">_FormGetCredentialOption_</option>
+					<option id="createOption" value="create">_FormCreateOption_</option>
+					<option id="createCredentialOption" value="createcredential">_FormCreateCredentialOption_</option>
+					<option id="editOption" value="edit">_FormEditOption_</option>
+					<option id="editCredentialOption" value="editcredential">_FormEditCredentialOption_</option>
+					<option id="deleteOption" value="delete">_FormDeleteOption_</option>
+				</select></label>
+
+				<div class="buttons">
+					<input type="submit" value="_FormOpenWorkbookButton_" id="openWorkbookButton" onclick="submitValues(this)" />
+				</div>
+
+				<div class="buttons">
+					<input type="submit" value="_FormExecuteButton_" id="submitButton" onclick="submitValues(this)" />
+					<input type="submit" value="_FormCancelButton_" id="cancelButton" onclick="submitValues(this)" />
+				</div>
+			</form>
+		</div>	
+
+		<script type="text/javascript">
+		/**
+		 * @param {HTMLCollection} collection
+		 * @param {string} value
+		 * @returns {HTMLElement}
+		 */
+		function findElementByValue(collection, value) {
+			'use strict';
+			for (var i = 0; i < collection.length; ++i) {
+				if (collection[i].value === value) {
+					return collection[i];
+				}
+			}
+		}
+
+		function selectOperationSelectedBefore() {
+			'use strict';
+			/** @type {string} */
+			var selectedOptionValue = '_FormSelectedOperation_';
+			if (selectedOptionValue[0] !== '_') {
+				/** @type {HTMLCollection} */
+				var operationOptions = document.getElementById('operation').children;
+				/** @type {HTMLElement} */
+				var selectedOption = findElementByValue(operationOptions, selectedOptionValue);
+				selectedOption.setAttribute('selected', 'selected');
+			}
+		}
+
+		function hideUserOption() {
+			'use strict';
+			// Hide options according to Orchestrator type and version
+			if ('_FormOrchestratorType_' === 'cloud') {
+				// UiPath Automation Cloud
+				document.getElementById('userOption').outerHTML = '';
+				document.getElementById('ouOption').outerHTML = '';
+			} else {
+				// On-Premises Orchestrator
+				switch (_FormOrchestratorVersion_) {
+					case 201804:
+					case 201904:
+						document.getElementById('folderOption').outerHTML = '';
+						document.getElementById('triggerOption').outerHTML = '';
+						break;
+					case 201910:
+					case 202004:
+					case 202010:
+						document.getElementById('ouOption').outerHTML = '';
+						break;
+				}
+			}
+		}
+
+		/**
+		 * @param {HTMLElement} elem
+		 * @returns {boolean}
+		 */
+		function submitValues(elem) {
+			'use strict';
+
+			/** @type {{action: string, entity: string, operation: string}} */
+			var	jsonObject = {};
+			/** @type {string} */
+			var formData;
+
+			jsonObject.action = elem.id.replace('Button', '');
+			jsonObject.entity = document.getElementById('entity').value;
+			jsonObject.operation = document.getElementById('operation').value;
+
+			// Get JSON representation of dictionary
+			formData = JSON.stringify(jsonObject);
+
+			// noinspection JSDeprecatedSymbols,JSUnresolvedFunction
+			window.external.setResult(formData);
+			return true;
+		}
+
+		function updateOpenWorkbookButtonText() {
+			'use strict';
+
+			/** @type {HTMLElement} */
+			var entity = document.getElementById('entity');
+			/** @type {HTMLElement} */
+			var selectedEntityOption = findElementByValue(entity.children, entity.value);
+			/** @type {HTMLElement} */
+			var openWorkbookButton = document.getElementById('openWorkbookButton');
+
+			openWorkbookButton.value = openWorkbookButton.value.replace(/\(.*\)/, "(" + selectedEntityOption.textContent + ")");
+		}
+
+		function updateOperations() {
+			'use strict';
+
+			/** @type {string} */
+			var selectedEntity = document.getElementById('entity').value;
+			/** @type {HTMLElement} */
+			var operationElement = document.getElementById('operation');
+
+			// Select the appropriate set of operations based on the chosen entity
+			switch (selectedEntity) {
+				case 'asset':
+					operationElement.innerHTML = '<option id="getOption" value="get">_FormGetOption_</option><option id="getCredentialOption" value="getcredential">_FormGetCredentialOption_</option><option id="createOption" value="create">_FormCreateOption_</option><option id="createCredentialOption" value="createcredential">_FormCreateCredentialOption_</option><option id="editOption" value="edit">_FormEditOption_</option><option id="editCredentialOption" value="editcredential">_FormEditCredentialOption_</option><option id="deleteOption" value="delete">_FormDeleteOption_</option>';
+					if ('_FormOrchestratorType_' === 'cloud' || _FormOrchestratorVersion_ >= 202104) {
+						operationElement.innerHTML = operationElement.innerHTML + '<option id="linkOrUnlinkOption" value="linkorunlink">_FormLinkOrUnlinkOption_</option>';
+					}
+					break;
+				case 'user':
+					operationElement.innerHTML = '<option id="getOption" value="get">_FormGetOption_</option><option id="createOption" value="create">_FormCreateOption_</option><option id="editOption" value="edit">_FormEditOption_</option><option id="deleteOption" value="delete">_FormDeleteOption_</option><option id="addRemoveRoleOption" value="addremoverole">_FormAddRemoveUserRolesOption_</option>';
+					// From Orchestrator 2019.10, Organization Units have been renamed to Folders
+					if ('_FormOrchestratorType_' === 'onpremises' && _FormOrchestratorVersion_ < 201910) {
+						operationElement.innerHTML = operationElement.innerHTML + '<option id="addRemoveOUOption" value="addremoveou">_FormAddRemoveUserOrganizationUnitsOption_</option>';
+					}
+					break;
+				case 'robot':
+					operationElement.innerHTML = '<option id="getOption" value="get">_FormGetOption_</option><option id="createOption" value="create">_FormCreateOption_</option><option id="editOption" value="edit">_FormEditOption_</option><option id="deleteOption" value="delete">_FormDeleteOption_</option>';
+					break;
+				case 'environment':
+					operationElement.innerHTML = '<option id="getOption" value="get">_FormGetOption_</option><option id="createOption" value="create">_FormCreateOption_</option><option id="deleteOption" value="delete">_FormDeleteOption_</option><option id="addRemoveRobotOption" value="addremoverobot">_FormAddRemoveEnvironmentRobotsOption_</option>';
+					break;
+				case 'process':
+					operationElement.innerHTML = '<option id="getOption" value="get">_FormGetOption_</option><option id="createOption" value="create">_FormCreateOption_</option><option id="deleteOption" value="delete">_FormDeleteOption_</option><option id="updateProcessToLatestPackageVersionOption" value="updateprocesstolatestpackageversion">_FormUpdateProcessToLatestPackageVersionOption_</option><option id="rollBackProcessToPreviousPackageVersionOption" value="rollbackprocesstopreviouspackageversion">_FormRollbackProcessToPreviousPackageVersionOption_</option><option id="updateProcessToSpecifiedPackageVersionOption" value="updateprocesstospecifiedpackageversion">_FormUpdateProcessToSpecifiedPackageVersionOption_</option>';
+					break;
+				case 'queue':
+					operationElement.innerHTML = '<option id="getOption" value="get">_FormGetOption_</option><option id="createOption" value="create">_FormCreateOption_</option><option id="deleteOption" value="delete">_FormDeleteOption_</option><option id="downloadQueueItemsOption" value="downloadqueueitems">_FormDownloadQueueItemsOption_</option>';
+					// On-Premises Orchestrator 2018.4 does not support bulk upload of Queue items
+					if ('_FormOrchestratorType_' === 'cloud' || _FormOrchestratorVersion_ >= 201904) {
+						operationElement.innerHTML = operationElement.innerHTML + '<option id="uploadQueueItemsOption" value="uploadqueueitems">_FormUploadQueueItemsOption_</option>';		
+					}
+					if ('_FormOrchestratorType_' === 'cloud' || _FormOrchestratorVersion_ >= 202104) {
+						operationElement.innerHTML = operationElement.innerHTML + '<option id="linkOrUnlinkOption" value="linkorunlink">_FormLinkOrUnlinkOption_</option>';
+					}
+					break;
+				case 'package':
+					operationElement.innerHTML = '<option id="getOption" value="get">_FormGetOption_</option><option id="deleteOption" value="delete">_FormDeleteOption_</option><option id="downloadPackageLibraryOption" value="downloadpackagelibrary">_FormDownloadPackageLibraryOption_</option><option id="uploadPackageLibraryOption" value="uploadpackagelibrary">_FormUploadPackageLibraryOption_</option><option id="getPackageReferencedEntitiesOption" value="getpackagereferencedentities">_FormGetPackageReferencedEntitiesOption_</option>';
+					break;
+				case 'library':
+					operationElement.innerHTML = '<option id="getOption" value="get">_FormGetOption_</option><option id="deleteOption" value="delete">_FormDeleteOption_</option><option id="downloadPackageLibraryOption" value="downloadpackagelibrary">_FormDownloadPackageLibraryOption_</option><option id="uploadPackageLibraryOption" value="uploadpackagelibrary">_FormUploadPackageLibraryOption_</option>';
+					break;	
+				case 'machine':
+				case 'trigger':
+				case 'ou':
+					operationElement.innerHTML = '<option id="getOption" value="get">_FormGetOption_</option><option id="createOption" value="create">_FormCreateOption_</option><option id="deleteOption" value="delete">_FormDeleteOption_</option>';
+					if (selectedEntity === 'trigger') {
+						operationElement.innerHTML += '<option id="enableDisableTriggerOption" value="enabledisabletrigger">_FormEnableDisableTriggerOption_</option>';
+					}
+					if (selectedEntity === 'machine') {
+						operationElement.innerHTML += '<option id="installedRobotsOption" value="installedrobots">_FormInstalledRobotsOption_</option>';
+						if ('_FormOrchestratorType_' === 'cloud' || _FormOrchestratorVersion_ >= 202104) {
+							operationElement.innerHTML += '<option id="editUserMappingsOption" value="editusermappings">_EditUserMappingsOperationName_</option>';
+						}
+					}
+					break;
+				case 'folder':
+					operationElement.innerHTML = '<option id="getOption" value="get">_FormGetOption_</option><option id="createOption" value="create">_FormCreateOption_</option><option id="deleteOption" value="delete">_FormDeleteOption_</option><option id="getFoldersUsersOption" value="getfoldersusers">_FormGetFoldersUsersOption_</option><option id="assignFolderUserOption" value="assignfolderuser">_FormAssignFolderUserOption_</option><option id="unassignFolderUserOption" value="unassignfolderuser">_FormUnassignFolderUserOption_</option><option id="addRemoveFolderUserRolesOption" value="addremovefolderuserroles">_FormAddRemoveFolderUserRolesOption_</option><option id="assignUnassignFolderMachineOption" value="assignunassignfoldermachine">_FormAssignUnassignFolderMachineOption_</option>';
+					// By default, the migration entities from Classic to Modern Folders requires Orchestrator 2020.10 or newer
+					if ('_FormOrchestratorType_' === 'cloud' || _FormOrchestratorVersion_ >= 202010 || (_FormOrchestratorVersion_ === 202004 && _Enable202004FolderMigration_)) {
+						operationElement.innerHTML = operationElement.innerHTML + '<option id="migrateOption" value="migrate">_FormMigrateOption_</option>';		
+					}
+					break;
+				case 'job':
+					operationElement.innerHTML = '<option id="getOption" value="get">_FormGetOption_</option>';
+					break;
+			}
+		}
+		</script>
+	</body>
+</html>
