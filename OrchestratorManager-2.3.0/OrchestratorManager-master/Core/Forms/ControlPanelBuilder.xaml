@@ -1,0 +1,681 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="ControlPanelBuilder" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, ui:GenericValue))" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>873,7293</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>FormBuilder_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="42">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Text.RegularExpressions</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="38">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <sap:WorkflowViewStateService.ViewState>
+    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+      <x:Boolean x:Key="ShouldExpandAll">False</x:Boolean>
+    </scg:Dictionary>
+  </sap:WorkflowViewStateService.ViewState>
+  <Sequence sap2010:Annotation.AnnotationText="Builds the form to be used as the control panel of Orchestrator Manager." DisplayName="Control Panel Builder" sap:VirtualizedContainerService.HintSize="769,7228" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="ControlPanelHtml" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:ReadTextFile Content="[ControlPanelHtml]" DisplayName="Read Text File" FileName="[in_Config(&quot;ControlPanelTemplatePath&quot;)]" sap:VirtualizedContainerService.HintSize="727,132" sap2010:WorkflowViewState.IdRef="ReadTextFile_1" />
+    <Assign DisplayName="Assign Form Title" sap:VirtualizedContainerService.HintSize="727,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormTitle_", in_Config("FormTitle"))]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign DisplayName="Assign Entity Label" sap:VirtualizedContainerService.HintSize="727,60" sap2010:WorkflowViewState.IdRef="Assign_4">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormEntityLabel_", in_Config("FormEntityLabel"))]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Sequence DisplayName="Entities" sap:VirtualizedContainerService.HintSize="727,2240" sap2010:WorkflowViewState.IdRef="Sequence_2">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Assign DisplayName="Assign Asset Option" sap:VirtualizedContainerService.HintSize="684,60" sap2010:WorkflowViewState.IdRef="Assign_5">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormAssetOption_", in_Config("FormAssetOption"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign User Option" sap:VirtualizedContainerService.HintSize="684,60" sap2010:WorkflowViewState.IdRef="Assign_6">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormUserOption_", in_Config("FormUserOption"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Machine Option" sap:VirtualizedContainerService.HintSize="684,60" sap2010:WorkflowViewState.IdRef="Assign_7">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormMachineOption_", in_Config("FormMachineOption"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Robot Option" sap:VirtualizedContainerService.HintSize="684,60" sap2010:WorkflowViewState.IdRef="Assign_8">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormRobotOption_", in_Config("FormRobotOption"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Environment Option" sap:VirtualizedContainerService.HintSize="684,60" sap2010:WorkflowViewState.IdRef="Assign_9">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormEnvironmentOption_", in_Config("FormEnvironmentOption"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Process Option" sap:VirtualizedContainerService.HintSize="684,60" sap2010:WorkflowViewState.IdRef="Assign_18">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormProcessOption_", in_Config("FormProcessOption"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Organization Unit Option" sap:VirtualizedContainerService.HintSize="684,60" sap2010:WorkflowViewState.IdRef="Assign_26">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormOrganizationUnitOption_", in_Config("FormOrganizationUnitOption"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Folder Option" sap:VirtualizedContainerService.HintSize="684,60" sap2010:WorkflowViewState.IdRef="Assign_28">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormFolderOption_", in_Config("FormFolderOption"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Queue Option" sap:VirtualizedContainerService.HintSize="684,60" sap2010:WorkflowViewState.IdRef="Assign_29">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormQueueOption_", in_Config("FormQueueOption"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Package Option" sap:VirtualizedContainerService.HintSize="684,60" sap2010:WorkflowViewState.IdRef="Assign_34">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormPackageOption_", in_Config("FormPackageOption"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Library Option" sap:VirtualizedContainerService.HintSize="684,60" sap2010:WorkflowViewState.IdRef="Assign_54">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormLibraryOption_", in_Config("FormLibraryOption"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Trigger Option" sap:VirtualizedContainerService.HintSize="684,60" sap2010:WorkflowViewState.IdRef="Assign_56">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormTriggerOption_", in_Config("FormTriggerOption"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Trigger Option" sap:VirtualizedContainerService.HintSize="684,60" sap2010:WorkflowViewState.IdRef="Assign_69">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormJobOption_", in_Config("FormJobOption"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Sequence DisplayName="Select Entity" sap:VirtualizedContainerService.HintSize="684,848" sap2010:WorkflowViewState.IdRef="Sequence_6">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <If Condition="[in_Config.ContainsKey(&quot;SelectedEntity&quot;)]" DisplayName="If Selected Entity Is Defined" sap:VirtualizedContainerService.HintSize="642,656" sap2010:WorkflowViewState.IdRef="If_2">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <If.Then>
+            <Switch x:TypeArguments="x:String" DisplayName="Switch Entity to Select" Expression="[in_Config(&quot;SelectedEntity&quot;).ToLower]" sap:VirtualizedContainerService.HintSize="497,508" sap2010:WorkflowViewState.IdRef="Switch`1_1">
+              <Switch.Default>
+                <Throw DisplayName="Throw (Entity Not Supported)" Exception="[New ArgumentException(in_Config(&quot;UnsupportedEntity&quot;))]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_1" />
+              </Switch.Default>
+              <Assign x:Key="asset" DisplayName="Assign Asset Selection" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_36">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormAssetSelected_", "selected")]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <Assign x:Key="user" DisplayName="Assign User Selection" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_37">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormUserSelected_", "selected")]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <Assign x:Key="machine" DisplayName="Assign Machine Selection" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_38">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormMachineSelected_", "selected")]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <Assign x:Key="robot" DisplayName="Assign Robot Selection" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_39">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormRobotSelected_", "selected")]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <Assign x:Key="environment" DisplayName="Assign Environment Selection" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_40">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormEnvironmentSelected_", "selected")]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <Assign x:Key="process" DisplayName="Assign Process Selection" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_41">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormProcessSelected_", "selected")]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <Assign x:Key="organizationunit" DisplayName="Assign Organization Unit Selection" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_42">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormOUSelected_", "selected")]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <Assign x:Key="folder" DisplayName="Assign Folder Selection" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_43">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormFolderSelected_", "selected")]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <Assign x:Key="queue" DisplayName="Assign Queue Selection" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_44">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormQueueSelected_", "selected")]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <Assign x:Key="package" DisplayName="Assign Package Selection" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_45">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormPackageSelected_", "selected")]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <Assign x:Key="library" DisplayName="Assign Library Selection" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_55">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormLibrarySelected_", "selected")]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <Assign x:Key="trigger" DisplayName="Assign Trigger Selection" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_57">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormTriggerSelected_", "selected")]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <Assign x:Key="job" DisplayName="Assign Trigger Selection" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_70">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormJobSelected_", "selected")]</InArgument>
+                </Assign.Value>
+              </Assign>
+            </Switch>
+          </If.Then>
+        </If>
+        <Assign DisplayName="Assign Entity Not Selected" sap:VirtualizedContainerService.HintSize="642,60" sap2010:WorkflowViewState.IdRef="Assign_61">
+          <Assign.To>
+            <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="x:String">[Regex.Replace(ControlPanelHtml, "_Form.*Selected_", String.Empty)]</InArgument>
+          </Assign.Value>
+        </Assign>
+      </Sequence>
+    </Sequence>
+    <Assign DisplayName="Assign Operation Label" sap:VirtualizedContainerService.HintSize="727,60" sap2010:WorkflowViewState.IdRef="Assign_16">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormOperationLabel_", in_Config("FormOperationLabel"))]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Sequence DisplayName="Operations" sap:VirtualizedContainerService.HintSize="727,3100" sap2010:WorkflowViewState.IdRef="Sequence_3">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Assign DisplayName="Assign Get Option" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_11">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormGetOption_", in_Config("GetOperationName"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Get Credential Option" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_52">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormGetCredentialOption_", in_Config("GetCredentialOperationName"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Create Option" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_12">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormCreateOption_", in_Config("CreateOperationName"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Create Credential Option" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_21">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormCreateCredentialOption_", in_Config("CreateCredentialOperationName"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Edit Option" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_13">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormEditOption_", in_Config("EditOperationName"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Edit Credential Option" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_22">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormEditCredentialOption_", in_Config("EditCredentialOperationName"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Delete Option" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_14">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormDeleteOption_", in_Config("DeleteOperationName"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Add Remove Robots Option" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_15">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormAddRemoveEnvironmentRobotsOption_", in_Config("AddRemoveEnvironmentRobotsOperationName"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Add Remove Organization Units Option" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_19">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormAddRemoveUserOrganizationUnitsOption_", in_Config("AddRemoveUserOrganizationUnitsOperationName"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Add Remove Roles Option" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_20">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormAddRemoveUserRolesOption_", in_Config("AddRemoveUserRolesOperationName"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Update Process to Latest Package Version Option" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_23">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormUpdateProcessToLatestPackageVersionOption_", in_Config("UpdateProcessToLatestPackageVersionOperationName"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Rollback Process to Previous Package Version Option" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_24">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormRollbackProcessToPreviousPackageVersionOption_", in_Config("RollbackProcessToPreviousPackageVersionOperationName"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Update Process to Specified Package Version Option" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_65">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormUpdateProcessToSpecifiedPackageVersionOption_", in_Config("UpdateProcessToSpecifiedPackageVersionOperationName"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Download Queue Items Option" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_30">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormDownloadQueueItemsOption_", in_Config("DownloadQueueItemsOperationName"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Upload Queue Items Option" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_31">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormUploadQueueItemsOption_", in_Config("UploadQueueItemsOperationName"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Download Package/Library Option" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_32">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormDownloadPackageLibraryOption_", in_Config("DownloadPackageLibraryOperationName"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Upload Package/Library Option" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_33">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormUploadPackageLibraryOption_", in_Config("UploadPackageLibraryOperationName"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Get Package Referenced Entities Option" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_51">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormGetPackageReferencedEntitiesOption_", in_Config("GetPackageReferencedEntitiesOperationName"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Get Folders' Users Option" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_50">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormGetFoldersUsersOption_", in_Config("GetFoldersUsersOperationName").Replace("'", "\'"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Assign Folder User Option" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_47">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormAssignFolderUserOption_", in_Config("AssignFolderUserOperationName"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Unassign Folder User Option" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_48">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormUnassignFolderUserOption_", in_Config("UnassignFolderUserOperationName"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Add Remove Folder User Roles Option" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_49">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormAddRemoveFolderUserRolesOption_", in_Config("AddRemoveFolderUserRolesOperationName"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Migrate Folder Option" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_46">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormMigrateOption_", in_Config("MigrateClassicToModernOperationName"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Enable Disable Option" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_63">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormEnableDisableTriggerOption_", in_Config("EnableDisableTriggerOperationName"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Installed RobotsOption" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_67">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormInstalledRobotsOption_", in_Config("InstalledRobotsOperationName"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Enable Disable Option" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_64">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormAssignUnassignFolderMachineOption_", in_Config("AssignUnassignFolderMachineOperationName"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Link Or Unlink Option" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_66">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormLinkOrUnlinkOption_", in_Config("LinkOrUnlinkOperationName"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Edit User Mappings Option" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_68">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_EditUserMappingsOperationName_", in_Config("EditUserMappingsOperationName"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <If Condition="[in_Config.ContainsKey(&quot;SelectedOperation&quot;)]" DisplayName="If SelectedOption Key exists" sap:VirtualizedContainerService.HintSize="484,208" sap2010:WorkflowViewState.IdRef="If_4">
+        <If.Then>
+          <Assign DisplayName="Assign Selected Operation Option" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_62">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormSelectedOperation_", in_Config("SelectedOperation"))]</InArgument>
+            </Assign.Value>
+          </Assign>
+        </If.Then>
+      </If>
+    </Sequence>
+    <Sequence DisplayName="Buttons" sap:VirtualizedContainerService.HintSize="727,352" sap2010:WorkflowViewState.IdRef="Sequence_4">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Assign DisplayName="Assign Execute Button" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_10">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormExecuteButton_", in_Config("FormExecuteButton"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Cancel Button" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_17">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormCancelButton_", in_Config("FormCancelButton"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Assign Open Workbook Button" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_58">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormOpenWorkbookButton_", in_Config("FormOpenWorkbookButton"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+    </Sequence>
+    <Sequence DisplayName="Adjust Options According to Orchestrator Type and Version" sap:VirtualizedContainerService.HintSize="727,649" sap2010:WorkflowViewState.IdRef="Sequence_5">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Assign DisplayName="Assign Orchestrator Type" sap:VirtualizedContainerService.HintSize="484,60" sap2010:WorkflowViewState.IdRef="Assign_25">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormOrchestratorType_", in_Config("OrchestratorType"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <If sap2010:Annotation.AnnotationText="Used to hide options that depend on Orchestrator version.&#xA;For example, Organization Units should not appear when using Orchestrator 2019.10+." Condition="[in_Config(&quot;OrchestratorType&quot;).ToLowerInvariant = &quot;onpremises&quot;]" DisplayName="If On-Premises Orchestrator" sap:VirtualizedContainerService.HintSize="484,457" sap2010:WorkflowViewState.IdRef="If_1">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <If.Then>
+          <Sequence DisplayName="Version Dependent Parameters" sap:VirtualizedContainerService.HintSize="304,252" sap2010:WorkflowViewState.IdRef="Sequence_7">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <Assign DisplayName="Assign On-Premises Orchestrator Version" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_27">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_FormOrchestratorVersion_", in_Config("OnPremisesOrchestratorVersion"))]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign DisplayName="Assign Enable202004FolderMigration" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_53">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[ControlPanelHtml]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[ControlPanelHtml.Replace("_Enable202004FolderMigration_", in_Config("Enable202004FolderMigration").ToLowerInvariant)]</InArgument>
+              </Assign.Value>
+            </Assign>
+          </Sequence>
+        </If.Then>
+      </If>
+    </Sequence>
+    <ui:WriteTextFile DisplayName="Write Text File" FileName="[in_Config(&quot;ControlPanelPath&quot;)]" sap:VirtualizedContainerService.HintSize="727,132" sap2010:WorkflowViewState.IdRef="WriteTextFile_1" Text="[ControlPanelHtml]" />
+  </Sequence>
+</Activity>

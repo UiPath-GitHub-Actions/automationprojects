@@ -1,0 +1,224 @@
+<!-- saved from url=(0016)http://localhost -->
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>_FormTitle_</title>
+		<link rel="stylesheet" type="text/css" href="FormStyle.css">
+	</head>
+
+	<body onload="startup()">
+		<img class="logo" src="UiPathLogo.svg" alt="UiPath Logo">
+
+		<!-- Based on form from https://www.sanwebe.com/2014/08/css-html-forms-designs -->
+		<div class="form-style">
+			<div class="form-style-heading">_FormTitle_</div>
+			
+			<form id="authenticationPanelForm" action="" method="post">
+				<div class="orchestratorType">
+					<label title="_FormOnPremisesOrchestratorTooltip_" for="onPremises"><input type="radio" onclick="orchestratorTypeCheck()" id="onPremises" name="orchestratorType" value="onPremises" _FormOnPremisesOrchestratorCheck_/>_FormOnPremisesOrchestratorLabel_</label>
+					<label title="_FormCloudOrchestratorTooltip_" for="cloud"><input type="radio" onclick="orchestratorTypeCheck()" id="cloud" name="orchestratorType" value="cloud" _FormCloudOrchestratorCheck_/>_FormCloudOrchestratorLabel_</label>
+				</div>
+				
+				<div id="onPremiseOrchestratorOptions">
+					<label title="_FormOrchestratorVersionTooltip_" for="orchestratorVersion"><span>_FormOrchestratorVersionLabel_</span><select id="orchestratorVersion" class="select-field" onchange="orchestratorTypeCheck()">
+						<option id="v201804" value="201804" _Form201804Selected_>2018.4</option>	
+						<option id="v201904" value="201904" _Form201904Selected_>2019.4</option>
+						<option id="v201910" value="201910" _Form201910Selected_>2019.10</option>
+						<option id="v202004" value="202004" _Form202004Selected_>2020.4</option>
+						<option id="v202010" value="202010" _Form202010Selected_>2020.10</option>
+						<option id="v202104" value="202104" _Form202104Selected_>2021.4</option>
+						<option id="v202110" value="202110" _Form202110Selected_>2021.10</option>
+						<option id="v202204" value="202204" _Form202204Selected_>2022.04</option>
+					</select></label>
+					<label title="_FormUsernameTooltip_" for="username"><span id="formUsernameLabel">_FormUsernameLabel_</span><input required="required" type="text" class="input-field" id="username" /></label>
+					<label title="_FormPasswordTooltip_" for="password"><span id="formPasswordLabel">_FormPasswordLabel_</span><input required="required" type="password" class="input-field" id="password" /></label>
+					<label title="_FormOrchestratorURLTooltip_" for="orchestratorURL"><span>_FormOrchestratorURLLabel_</span><input required="required" type="text" value="_FormOrchestratorURLValue_" class="input-field" id="orchestratorURL" /></label>
+					<label title="_FormTenantNameTooltip_" for="onPremisesTenantName"><span>_FormTenantNameLabel_</span><input required="required" type="text" value="_FormOnPremisesTenantNameValue_" class="input-field" id="onPremisesTenantName" /></label>
+				</div>
+				
+				<div id="cloudOrchestratorOptions">
+					<label title="_FormUserKeyTooltip_" for="userKey"><span id="formUserKeyLabel">_FormUserKeyLabel_</span><input required="required" type="text" class="input-field" id="userKey" /></label>
+					<label title="_FormClientIDTooltip_" for="clientID"><span id="formClientIDLabel">_FormClientIDLabel_</span><input required="required" type="text" class="input-field" id="clientID" /></label>
+					<label title="_FormAccountNameTooltip_" for="accountName"><span>_FormAccountNameLabel_</span><input required="required" type="text" value="_FormAccountNameValue_" class="input-field" id="accountName" /></label>
+					<label title="_FormTenantNameTooltip_" for="cloudTenantName"><span>_FormTenantLogicalNameLabel_</span><input required="required" type="text" value="_FormCloudTenantNameValue_" class="input-field" id="cloudTenantName" /></label>
+				</div>
+				
+				<div id="commonOrchestratorOptions">
+					<label title="_FormWorkbooksFolderPathTooltip_" for="workbooksFolderPath"><span>_FormWorkbooksFolderPathLabel_</span><input required="required" type="text" value="_FormWorkbooksFolderPathValue_" class="input-field" id="workbooksFolderPath" /></label>
+				</div>
+				
+				<div id="oauthOptions" class="windowsCredentialManagerOptions">
+					<label for="useOAuthFlow"><input type="checkbox" id="useOAuthFlow" name="useOAuthFlow" onclick="useOAuthFlowCheck()" checked>_FormUseOAuthFlow_</label>
+				</div>
+
+				<div class="windowsCredentialManagerOptions">
+					<label for="useSavedCredential" _FormDisplayUseSavedCredentialCheckbox_ ><input type="checkbox" onclick="useSavedCredentialCheck()" id="useSavedCredential" name="useSavedCredential" _FormCheckUseSavedCredentialCheck_/>_FormUseSavedCredentialLabel_</label>
+					<label for="saveCredential"><input type="checkbox" onclick="saveCredentialCheck()" id="saveCredential" name="saveCredential"/>_FormSaveCredentialLabel_</label>
+				</div>
+				
+				<div class="buttons">
+					<input type="submit" value="_FormSubmitButton_" id="submitButton" onclick="submitValues(this)" />
+					<input type="submit" value="_FormCancelButton_" id="cancelButton" onclick="submitValues(this)" formnovalidate="formnovalidate" />
+				</div>
+				<span class="accountLockoutWarning">_FormAccountLockoutWarning_</span>
+			</form>
+		</div>	
+		
+		<script type="text/javascript">
+		/** @type {function()} */
+		var startup;
+		/** @type {function()} */
+		var orchestratorTypeCheck;
+		/** @type {function()} */
+		var useOAuthFlowCheck;
+		/** @type {function()} */
+		var useSavedCredentialCheck;
+		/** @type {function()} */
+		var saveCredentialCheck;
+		/** @type {function(HTMLElement): boolean} */
+		var submitValues;
+
+		// IIFE to avoid polluting the global scope
+		(function () {
+			'use strict';
+
+			startup = function () {
+				useSavedCredentialCheck();
+				saveCredentialCheck();
+				orchestratorTypeCheck();
+				useOAuthFlowCheck();
+			};
+
+			useOAuthFlowCheck = function() {
+				if (document.getElementById('useOAuthFlow').checked) {
+					document.getElementById('formUsernameLabel').innerHTML = "_FormAppIDLabel_";
+					document.getElementById('formPasswordLabel').innerHTML = "_FormAppSecretLabel_";
+					document.getElementById('formUserKeyLabel').innerHTML = "_FormAppSecretLabel_";
+					document.getElementById('formClientIDLabel').innerHTML = "_FormAppIDLabel_";
+				} else {
+					document.getElementById('formUsernameLabel').innerHTML = "_FormUsernameLabel_";
+					document.getElementById('formPasswordLabel').innerHTML = "_FormPasswordLabel_";
+					document.getElementById('formUserKeyLabel').innerHTML = "_FormUserKeyLabel_";
+					document.getElementById('formClientIDLabel').innerHTML = "_FormClientIDLabel_";
+				}
+			}
+
+			useSavedCredentialCheck = function () {
+				if (document.getElementById('useSavedCredential').checked) {
+					document.getElementById('saveCredential').checked = false;
+					disableTextInput(true);
+				} else {
+					disableTextInput(false);
+				}
+			}
+
+			saveCredentialCheck = function () {
+				if (document.getElementById('saveCredential').checked) {
+					document.getElementById('useSavedCredential').checked = false;
+					disableTextInput(false);
+				}
+			}
+
+			/** @param {boolean} flag */
+			function disableTextInput(flag) {
+				var i, len;
+				/** @type {Array.<string>} */
+				var textInputElementsIDs = ['username', 'password', 'userKey', 'clientID'];
+				/** @type {HTMLInputElement} */
+				var element;
+
+				// Disable or enable text input based on a flag
+				// Disabled inputs should be cleared of any existing value and should not be a required form field
+				for (i = 0, len = textInputElementsIDs.length; i < len; i += 1) {
+					element = document.getElementById(textInputElementsIDs[i]);
+					element.disabled = flag;
+					if (element.disabled) {
+						element.value = '';
+						element.required = false;
+					}
+				}
+			}
+
+			orchestratorTypeCheck = function () {
+				if (document.getElementById('onPremises').checked) {
+					document.getElementById('onPremiseOrchestratorOptions').style.display = 'block';
+					document.getElementById('cloudOrchestratorOptions').style.display = 'none';
+					document.getElementById('oauthOptions').style.display = document.getElementById('orchestratorVersion').value >= 202104 ? 'block' : 'none';
+					document.getElementById('useOAuthFlow').checked = document.getElementById('orchestratorVersion').value >= 202104 ? true : false;
+					useOAuthFlowCheck();
+				} else {
+					document.getElementById('onPremiseOrchestratorOptions').style.display = 'none';
+					document.getElementById('cloudOrchestratorOptions').style.display = 'block';
+					document.getElementById('oauthOptions').style.display = 'block';
+					document.getElementById('useOAuthFlow').checked = true;
+				}
+			}
+
+			/** @enum {string} */
+			var ORCHESTRATOR_TYPE = {
+				onPremises: 'onPremises',
+				cloud: 'cloud'
+			};
+
+			/**
+			 * @param {HTMLElement} elem
+			 * @returns {boolean}
+			 */
+			submitValues = function(elem) {
+				var i, len;
+				/** @type {{shouldStop: boolean, orchestratorType: ORCHESTRATOR_TYPE}|Object.<string|boolean>} */
+				var jsonObject = {};
+				/** @type {HTMLElement} */
+				var formElement;
+				/** @type {HTMLCollectionOf.<HTMLInputElement>} */
+				var inputElements;
+				/** @type {HTMLInputElement} */
+				var inputElement;
+				/** @type {string} */
+				var formData;
+
+				// Should stop after performing operation
+				if (elem.id === 'cancelButton') {
+					jsonObject.shouldStop = true;
+				} else {
+					jsonObject.shouldStop = false;
+					formElement = document.getElementById('authenticationPanelForm');
+					inputElements = formElement.getElementsByTagName('input');
+
+					// Add input elements to the output dictionary
+					for (i = 0, len = inputElements.length; i < len; i += 1) {
+						inputElement = inputElements[i];
+						if (inputElement.type === 'text' || inputElement.type === 'password') {
+							jsonObject[inputElement.id] = inputElement.value;
+						} else if (inputElement.type === 'checkbox') {
+							jsonObject[inputElement.id] = inputElement.checked;
+							if (inputElement.id === 'useOAuthFlow' && document.getElementById('useOAuthFlow').style.display === 'none') {
+								jsonObject[inputElement.id] = false;
+							}
+						}
+					}
+					
+					jsonObject['orchestratorVersion'] = document.getElementById('orchestratorVersion').value;
+
+					if (document.getElementById('onPremises').checked) {
+						jsonObject.orchestratorType = ORCHESTRATOR_TYPE.onPremises;
+					} else {
+						jsonObject.orchestratorType = ORCHESTRATOR_TYPE.cloud;
+					}
+				}
+
+				// Get JSON representation of dictionary
+				formData = JSON.stringify(jsonObject);
+
+				// noinspection JSDeprecatedSymbols,JSUnresolvedFunction
+				window.external.setResult(formData);
+
+				return true;
+			}
+		}());
+		</script>
+	</body>
+</html>
