@@ -43,6 +43,26 @@
           }
         }
       },
+      "BalaReva.Excel.Activities/2021.1.0": {
+        "type": "package",
+        "dependencies": {
+          "DocumentFormat.OpenXml": "2.20.0"
+        },
+        "compile": {
+          "lib/net6.0-windows7.0/_._": {}
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/BalaReva.Excel.Design.dll": {},
+          "lib/net6.0-windows7.0/BalaReva.Excel.Utilities.dll": {},
+          "lib/net6.0-windows7.0/BalaReva.Excel.dll": {},
+          "lib/net6.0-windows7.0/Interop.Microsoft.Office.Interop.PowerPoint.dll": {},
+          "lib/net6.0-windows7.0/Microsoft.Office.Interop.Excel.dll": {},
+          "lib/net6.0-windows7.0/Office.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
+      },
       "ClosedXML/0.95.4": {
         "type": "package",
         "dependencies": {
@@ -74,22 +94,6 @@
         },
         "runtime": {
           "lib/netstandard2.1/CsvHelper.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "DocumentFormat.OpenXml/2.12.1": {
-        "type": "package",
-        "dependencies": {
-          "System.IO.Packaging": "4.7.0"
-        },
-        "compile": {
-          "lib/netstandard2.0/_._": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.0/DocumentFormat.OpenXml.dll": {
             "related": ".xml"
           }
         }
@@ -4033,6 +4037,26 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
+      "TestLibrary/1.0.1": {
+        "type": "package",
+        "dependencies": {
+          "UiPath.System.Activities": "22.10.5"
+        },
+        "compile": {
+          "lib/net6.0-windows7.0/_._": {}
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/TestLibrary.dll": {},
+          "lib/net6.0-windows7.0/TestLibrary_Expressions_20592155.dll": {}
+        },
+        "contentFiles": {
+          "contentFiles/any/any/_._": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": false
+          }
+        }
+      },
       "UiPath/23.4.60.24910": {
         "type": "package",
         "compile": {
@@ -5306,6 +5330,26 @@
           "lib/net6.0-windows7.0/UiPath.Vision.Tesseract.dll": {},
           "lib/net6.0-windows7.0/UiPath.Vision.dll": {}
         }
+      },
+      "UiPathTeam.DatatablesComparison.Activities/2.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net5.0-windows7.0/_._": {}
+        },
+        "runtime": {
+          "lib/net5.0-windows7.0/DatatablesComparison.dll": {}
+        }
+      },
+      "UiPathTeam.EncodeActivities.Activities.Design/1.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0-windows7.0/_._": {}
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/UiPathTeam.EncodeActivities.Activities.Design.dll": {},
+          "lib/net6.0-windows7.0/UiPathTeam.EncodeActivities.Activities.dll": {},
+          "lib/net6.0-windows7.0/UiPathTeam.EncodeActivities.dll": {}
+        }
       }
     },
     "net6.0-windows7.0/win10-x64": {
@@ -5350,6 +5394,26 @@
           }
         }
       },
+      "BalaReva.Excel.Activities/2021.1.0": {
+        "type": "package",
+        "dependencies": {
+          "DocumentFormat.OpenXml": "2.20.0"
+        },
+        "compile": {
+          "lib/net6.0-windows7.0/_._": {}
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/BalaReva.Excel.Design.dll": {},
+          "lib/net6.0-windows7.0/BalaReva.Excel.Utilities.dll": {},
+          "lib/net6.0-windows7.0/BalaReva.Excel.dll": {},
+          "lib/net6.0-windows7.0/Interop.Microsoft.Office.Interop.PowerPoint.dll": {},
+          "lib/net6.0-windows7.0/Microsoft.Office.Interop.Excel.dll": {},
+          "lib/net6.0-windows7.0/Office.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
+      },
       "ClosedXML/0.95.4": {
         "type": "package",
         "dependencies": {
@@ -5381,22 +5445,6 @@
         },
         "runtime": {
           "lib/netstandard2.1/CsvHelper.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "DocumentFormat.OpenXml/2.12.1": {
-        "type": "package",
-        "dependencies": {
-          "System.IO.Packaging": "4.7.0"
-        },
-        "compile": {
-          "lib/netstandard2.0/_._": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.0/DocumentFormat.OpenXml.dll": {
             "related": ".xml"
           }
         }
@@ -9196,6 +9244,26 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
+      "TestLibrary/1.0.1": {
+        "type": "package",
+        "dependencies": {
+          "UiPath.System.Activities": "22.10.5"
+        },
+        "compile": {
+          "lib/net6.0-windows7.0/_._": {}
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/TestLibrary.dll": {},
+          "lib/net6.0-windows7.0/TestLibrary_Expressions_20592155.dll": {}
+        },
+        "contentFiles": {
+          "contentFiles/any/any/_._": {
+            "buildAction": "None",
+            "codeLanguage": "any",
+            "copyToOutput": false
+          }
+        }
+      },
       "UiPath/23.4.60.24910": {
         "type": "package",
         "compile": {
@@ -10469,6 +10537,26 @@
           "lib/net6.0-windows7.0/UiPath.Vision.Tesseract.dll": {},
           "lib/net6.0-windows7.0/UiPath.Vision.dll": {}
         }
+      },
+      "UiPathTeam.DatatablesComparison.Activities/2.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net5.0-windows7.0/_._": {}
+        },
+        "runtime": {
+          "lib/net5.0-windows7.0/DatatablesComparison.dll": {}
+        }
+      },
+      "UiPathTeam.EncodeActivities.Activities.Design/1.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0-windows7.0/_._": {}
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/UiPathTeam.EncodeActivities.Activities.Design.dll": {},
+          "lib/net6.0-windows7.0/UiPathTeam.EncodeActivities.Activities.dll": {},
+          "lib/net6.0-windows7.0/UiPathTeam.EncodeActivities.dll": {}
+        }
       }
     }
   },
@@ -10512,6 +10600,29 @@
         "pkgicon.png"
       ]
     },
+    "BalaReva.Excel.Activities/2021.1.0": {
+      "sha512": "pxPJkxvYpuEyxR8WOT+3ACc2pEPtOrzLkCM/mQ91GPC9FNRRLdMNHYZiRg2po4JN8GPjifPDOw2180kWyWc7Gw==",
+      "type": "package",
+      "path": "balareva.excel.activities/2021.1.0",
+      "files": [
+        ".nupkg.metadata",
+        "BR.png",
+        "balareva.excel.activities.2021.1.0.nupkg.sha512",
+        "balareva.excel.activities.nuspec",
+        "lib/net461/BalaReva.Excel.Design.dll",
+        "lib/net461/BalaReva.Excel.Utilities.dll",
+        "lib/net461/BalaReva.Excel.dll",
+        "lib/net461/Interop.Microsoft.Office.Interop.PowerPoint.dll",
+        "lib/net461/Microsoft.Office.Interop.Excel.dll",
+        "lib/net461/Office.dll",
+        "lib/net6.0-windows7.0/BalaReva.Excel.Design.dll",
+        "lib/net6.0-windows7.0/BalaReva.Excel.Utilities.dll",
+        "lib/net6.0-windows7.0/BalaReva.Excel.dll",
+        "lib/net6.0-windows7.0/Interop.Microsoft.Office.Interop.PowerPoint.dll",
+        "lib/net6.0-windows7.0/Microsoft.Office.Interop.Excel.dll",
+        "lib/net6.0-windows7.0/Office.dll"
+      ]
+    },
     "ClosedXML/0.95.4": {
       "sha512": "YixFPzUJ4Ni2AaW/FbPgzFvdtjIzE/4NKROwI1RqIQHWka7QN9Spt4sHuXaSk9PLmXBkk8newHGW0UWLcLs5GA==",
       "type": "package",
@@ -10551,28 +10662,6 @@
         "lib/netstandard2.0/CsvHelper.xml",
         "lib/netstandard2.1/CsvHelper.dll",
         "lib/netstandard2.1/CsvHelper.xml"
-      ]
-    },
-    "DocumentFormat.OpenXml/2.12.1": {
-      "sha512": "9nqz+/djR7Upcve7JSrxli+djUh5NRT5GxzvTe43dQqcGdLQzUBTd6fXZtKlaEbsfkswHtbQTEXwnAgGbmRbOA==",
-      "type": "package",
-      "path": "documentformat.openxml/2.12.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "documentformat.openxml.2.12.1.nupkg.sha512",
-        "documentformat.openxml.nuspec",
-        "icon.png",
-        "lib/net35/DocumentFormat.OpenXml.dll",
-        "lib/net35/DocumentFormat.OpenXml.xml",
-        "lib/net40/DocumentFormat.OpenXml.dll",
-        "lib/net40/DocumentFormat.OpenXml.xml",
-        "lib/net46/DocumentFormat.OpenXml.dll",
-        "lib/net46/DocumentFormat.OpenXml.xml",
-        "lib/netstandard1.3/DocumentFormat.OpenXml.dll",
-        "lib/netstandard1.3/DocumentFormat.OpenXml.xml",
-        "lib/netstandard2.0/DocumentFormat.OpenXml.dll",
-        "lib/netstandard2.0/DocumentFormat.OpenXml.xml"
       ]
     },
     "ExcelNumberFormat/1.0.10": {
@@ -19065,6 +19154,36 @@
         "system.xml.xdocument.nuspec"
       ]
     },
+    "TestLibrary/1.0.1": {
+      "sha512": "iGED5MACj3DTwp8uM8IilX9L3ZAaSBlJ6G3mcILgMKm+mslYFAplDKZM7EB64yGtRD+mQtXnHL7lEN+7VumYNA==",
+      "type": "package",
+      "path": "testlibrary/1.0.1",
+      "files": [
+        ".nupkg.metadata",
+        "content/.project/PackageBindingsMetadata.json",
+        "content/.project/design.json",
+        "content/.settings/Design/settings-5190454b.json",
+        "content/.settings/Design/settings-a1b2dac1.json",
+        "content/.settings/Design/settings-afad0842.json",
+        "content/.settings/Release/settings-1a5b880a.json",
+        "content/.settings/Release/settings-5190454b.json",
+        "content/.settings/Release/settings-590bb27b.json",
+        "content/.settings/Release/settings-82ca306a.json",
+        "content/.settings/Release/settings-9e9290da.json",
+        "content/.settings/Release/settings-a1b2dac1.json",
+        "content/.settings/Release/settings-afad0842.json",
+        "content/NewActivity.xaml",
+        "content/bindings.json",
+        "content/bindings_v2.json",
+        "content/project.json",
+        "contentFiles/any/any/.objects/.metadata",
+        "contentFiles/any/any/.objects/.type",
+        "lib/net6.0-windows7.0/TestLibrary.dll",
+        "lib/net6.0-windows7.0/TestLibrary_Expressions_20592155.dll",
+        "testlibrary.1.0.1.nupkg.sha512",
+        "testlibrary.nuspec"
+      ]
+    },
     "UiPath/23.4.60.24910": {
       "sha512": "qTkdjNMJQQ1CxvUYmjcfm8A6gQh44r1Rb7KiTLxqg+VMkgRznA2kUjhEbWaCb7U24diGjRNZ7yRr+8hAcrTClg==",
       "type": "package",
@@ -20901,16 +21020,49 @@
         "uipath.vision.3.10.1.nupkg.sha512",
         "uipath.vision.nuspec"
       ]
+    },
+    "UiPathTeam.DatatablesComparison.Activities/2.0.0": {
+      "sha512": "3G7w24zPopNHICkn3EO2QZDIvrXx4Ewoy1RyZ6i0iCwu+7oC7OMH2wEPOj1SnPG6jtpL7YDs/3WaRsNfYjD9mQ==",
+      "type": "package",
+      "path": "uipathteam.datatablescomparison.activities/2.0.0",
+      "files": [
+        ".nupkg.metadata",
+        "LICENSE.md",
+        "lib/net461/DatatablesComparison.dll",
+        "lib/net5.0-windows7.0/DatatablesComparison.dll",
+        "uipathteam.datatablescomparison.activities.2.0.0.nupkg.sha512",
+        "uipathteam.datatablescomparison.activities.nuspec"
+      ]
+    },
+    "UiPathTeam.EncodeActivities.Activities.Design/1.1.0": {
+      "sha512": "zwMMXzkLl6YblyLibXat1+B59ch9edqiLXFPDyCb9AAB5O8mtHDgJ7XZvu2HGN+MyIqeBMPFn43O+OVvsOmVkQ==",
+      "type": "package",
+      "path": "uipathteam.encodeactivities.activities.design/1.1.0",
+      "files": [
+        ".nupkg.metadata",
+        "lib/net461/UiPathTeam.EncodeActivities.Activities.Design.dll",
+        "lib/net461/UiPathTeam.EncodeActivities.Activities.dll",
+        "lib/net461/UiPathTeam.EncodeActivities.dll",
+        "lib/net6.0-windows7.0/UiPathTeam.EncodeActivities.Activities.Design.dll",
+        "lib/net6.0-windows7.0/UiPathTeam.EncodeActivities.Activities.dll",
+        "lib/net6.0-windows7.0/UiPathTeam.EncodeActivities.dll",
+        "uipathteam.encodeactivities.activities.design.1.1.0.nupkg.sha512",
+        "uipathteam.encodeactivities.activities.design.nuspec"
+      ]
     }
   },
   "projectFileDependencyGroups": {
     "": [],
     "net6.0-windows7.0": [
+      "BalaReva.Excel.Activities >= 2021.1.0 <= 2021.1.0",
+      "TestLibrary >= 1.0.1 <= 1.0.1",
       "UiPath.Excel.Activities >= 2.20.2 <= 2.20.2",
       "UiPath.Mail.Activities >= 1.20.0 <= 1.20.0",
       "UiPath.System.Activities >= 23.4.3 <= 23.4.3",
       "UiPath.Testing.Activities >= 23.4.1 <= 23.4.1",
-      "UiPath.UIAutomation.Activities >= 23.4.7 <= 23.4.7"
+      "UiPath.UIAutomation.Activities >= 23.4.7 <= 23.4.7",
+      "UiPathTeam.DatatablesComparison.Activities >= 2.0.0 <= 2.0.0",
+      "UiPathTeam.EncodeActivities.Activities.Design >= 1.1.0 <= 1.1.0"
     ]
   },
   "packageFolders": {
@@ -20931,6 +21083,16 @@
     "frameworks": {
       "net6.0-windows7.0": {
         "dependencies": {
+          "BalaReva.Excel.Activities": {
+            "include": "Runtime",
+            "target": "Package",
+            "version": "[2021.1.0, 2021.1.0]"
+          },
+          "TestLibrary": {
+            "include": "Runtime",
+            "target": "Package",
+            "version": "[1.0.1, 1.0.1]"
+          },
           "UiPath.Excel.Activities": {
             "include": "Runtime",
             "target": "Package",
@@ -20955,6 +21117,16 @@
             "include": "Runtime",
             "target": "Package",
             "version": "[23.4.7, 23.4.7]"
+          },
+          "UiPathTeam.DatatablesComparison.Activities": {
+            "include": "Runtime",
+            "target": "Package",
+            "version": "[2.0.0, 2.0.0]"
+          },
+          "UiPathTeam.EncodeActivities.Activities.Design": {
+            "include": "Runtime",
+            "target": "Package",
+            "version": "[1.1.0, 1.1.0]"
           }
         },
         "runtimeIdentifierGraphPath": "C:\\Program Files\\UiPath\\Studio\\runtime.json"
@@ -20965,5 +21137,17 @@
         "#import": []
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1102",
+      "level": "Error",
+      "message": "Unable to find package DocumentFormat.OpenXml with version (>= 2.20.0)\r\n  - Found 3 version(s) in https://pkgs.dev.azure.com/uipath/Public.Feeds/_packaging/UiPath-Official/nuget/v3/index.json [ Nearest version: 2.12.1 ]\r\n  - Found 3 version(s) in https://pkgs.dev.azure.com/uipath/Public.Feeds/_packaging/UiPath-Official/nuget/v3/index.json [ Nearest version: 2.12.1 ]\r\n  - Found 2 version(s) in C:\\Program Files\\UiPath\\Studio\\Packages [ Nearest version: 2.12.1 ]\r\n  - Found 0 version(s) in C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\\r\n  - Found 0 version(s) in https://staging.uipath.com/NikitaBiridzhyan/Default/orchestrator_/nuget/v3/76b794f6-a35e-47f3-8eaf-f813b4a24307/index.json",
+      "libraryId": "DocumentFormat.OpenXml",
+      "targetGraphs": [
+        "net6.0-windows7.0",
+        "net6.0-windows7.0/win10-x64"
+      ]
+    }
+  ]
 }
