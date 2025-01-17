@@ -24,7 +24,7 @@ jobs:
       environment: ${{ github.head_ref || github.ref_name }}
       #folder_dev: DEV # Modify this <<<---
       #folder_uat: UAT # Modify this <<<---
-      folder_prd: PRD # Modify this <<<---
+      folder_prd: prd # Modify this <<<---
     secrets:
       CLIENT_ID: ${{ secrets.CLIENT_ID }}
       CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
