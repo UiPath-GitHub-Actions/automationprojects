@@ -1,5 +1,6 @@
 {
   "name": "NewGitHubProcess",
+  "projectId": "07f2beb0-5e9e-4687-a6c1-083ea0500315",
   "description": "Blank Process",
   "main": "Main.xaml",
   "dependencies": {
@@ -43,7 +44,7 @@
       "ignoredFiles": []
     },
     "fileInfoCollection": [],
-    "modernBehavior": true
+    "saveToCloud": false
   },
   "expressionLanguage": "VisualBasic",
   "entryPoints": [
